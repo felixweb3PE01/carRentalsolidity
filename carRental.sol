@@ -54,7 +54,8 @@ contract carRental {
     }
 
     function withdraw()public restrict{
-       
+        (bool callSuccess, ) =payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Send Failed");
     }
 
     modifier restrict(){
@@ -63,4 +64,5 @@ contract carRental {
         }
         _;
     }
+
     }
